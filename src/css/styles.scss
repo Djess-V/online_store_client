@@ -1,0 +1,56 @@
+// Панель NavBar.
+
+.navbar_navlink {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar_navlink:hover {
+  color: rgb(38, 226, 38);
+}
+
+.navbar_navbutton {
+  border: none;
+  background-color: #212529;
+  position: relative;
+}
+
+.navbar_navbutton:hover {
+  color: rgb(38, 226, 38);
+  background-color: #212529;
+}
+
+.navbar_quantity-icon {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  color: white;
+  width: 25px;
+  height: 25px;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  top: -10px;
+  right: -10px;
+}
+
+.brand-bar {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.brand-bar_button {
+  cursor: pointer;
+  border: none;
+}
+
+.type-bar {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.type-bar_button {
+  cursor: pointer;
+  border: none;
+}
