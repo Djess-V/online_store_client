@@ -15,7 +15,7 @@ const DeviceList = observer(() => {
   };
 
   return (
-    <Row className="d-flex">
+    <Row className="device-list-row__device-list device-list d-flex">
       {devices.devices.map((device) => (
         <DeviceItem
           key={device.id}

@@ -37,14 +37,14 @@ const DeleteDeviceModal = ({
       <Modal.Body>
         <Form>
           <Form.Control
-            placeholder="Введите id устройства"
+            placeholder="Id"
             type="number"
             value={id}
             onChange={(e) => setId(e.target.value)}
           />
           <Form.Control
             className="mt-2"
-            placeholder="Введите название устройства"
+            placeholder="Название"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />

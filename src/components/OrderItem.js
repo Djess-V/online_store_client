@@ -17,39 +17,39 @@ const OrderItem = observer(({ id, index }) => {
         Заказ от {orders.orders.created[id]}г.
       </Accordion.Header>
       <Accordion.Body>
-        <ul>
+        <ul className="orders__list">
           {orders.orders.entities[id].map((device) => (
             <li
               key={device.deviceId}
-              className="my-4 d-flex align-items-center justify-content-between"
+              className="orders__item my-4 d-flex align-items-center justify-content-between"
             >
-              <div className="d-flex align-items-center">
+              <div className="orders__image-name d-flex align-items-center">
                 <Image
-                  width={50}
-                  height={50}
-                  className="me-3"
+                  className="orders__image-name_image me-3"
                   src={process.env.REACT_APP_API_URL + "/" + device.img}
                   alt="Device Image"
                 />
-                <div>
-                  {device.brandName} {device.name}
+                <div className="orders__image-name_name">
+                  <p>{device.brandName}</p>
+                  <p>{device.name}</p>
                 </div>
               </div>
-              <div>
-                {`${device.count}шт., по цене - ${device.price}руб., на сумму
-        - ${device.sum}руб.`}
+              <div className="orders__item_amount">
+                <p>{`Количество - ${device.count}шт.`}</p>
+                <p>{`Цена - ${device.price}руб.`}</p>
+                <p>{`Сумма - ${device.sum}руб.`}</p>
               </div>
             </li>
           ))}
         </ul>
         <hr />
-        <h5 className="my-4 ms-4 d-flex align-items-center justify-content-between">
+        <div className="orders__total my-4 ms-4 d-flex align-items-center justify-content-between">
           <p>ИТОГО</p>
-          <p>
-            {`${dataForFieldTotal.totalCount}шт. на сумму
-        - ${dataForFieldTotal.totalSum}руб.`}
-          </p>
-        </h5>
+          <div>
+            <p>{`Количество - ${dataForFieldTotal.totalCount}шт.`}</p>
+            <p>{`Сумма - ${dataForFieldTotal.totalSum}руб.`}</p>
+          </div>
+        </div>
       </Accordion.Body>
     </Accordion.Item>
   );

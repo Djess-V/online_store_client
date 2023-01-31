@@ -94,13 +94,13 @@ const CreateDevice = observer(({ show, onHide = (f) => f }) => {
           </Dropdown>
           <Form.Control
             className="mt-3"
-            placeholder="Введите название устройства"
+            placeholder="Название устройства"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <Form.Control
             className="mt-3"
-            placeholder="Введите стоимость устройства"
+            placeholder="Стоимость устройства"
             type="number"
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
@@ -112,7 +112,7 @@ const CreateDevice = observer(({ show, onHide = (f) => f }) => {
           />
           <hr />
           <Button className="mt-3" variant="outline-dark" onClick={addInfo}>
-            Добавить новое свойство
+            Добавить свойство
           </Button>
           {info.map((i) => (
             <Row key={i.number} className="mt-3">

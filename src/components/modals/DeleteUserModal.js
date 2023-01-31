@@ -37,14 +37,14 @@ const DeleteUserModal = ({
       <Modal.Body>
         <Form>
           <Form.Control
-            placeholder="Введите id пользователя"
+            placeholder="Id"
             type="number"
             value={id}
             onChange={(e) => setId(e.target.value)}
           />
           <Form.Control
             className="mt-2"
-            placeholder="Введите email пользователя"
+            placeholder="Email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

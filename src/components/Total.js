@@ -23,9 +23,9 @@ const Total = observer(({ getBrandType = (f) => f, checkout = (f) => f }) => {
   return (
     <Card>
       <Card.Body>
-        <Card.Title>ИТОГО</Card.Title>
+        <Card.Title className="total-basket_title">ИТОГО</Card.Title>
         <hr />
-        <table style={{ width: "100%" }}>
+        <table className="total-basket__table">
           <tbody>
             {basket.devices.ids.map((i) => {
               const device = basket.devices.entities[i];
@@ -50,12 +50,16 @@ const Total = observer(({ getBrandType = (f) => f, checkout = (f) => f }) => {
         </table>
 
         <hr />
-        <div className="d-flex justify-content-end">
-          <Button className="me-4" variant="outline-success" onClick={checkout}>
+        <div className="total-basket__buttons d-flex justify-content-end">
+          <Button
+            className="total-basket__buttons_button"
+            variant="outline-success"
+            onClick={checkout}
+          >
             Оформить заказ
           </Button>
           <Button
-            className="me-4"
+            className="total-basket__buttons_button"
             variant="outline-danger"
             onClick={removeAllItemsFromCart}
           >

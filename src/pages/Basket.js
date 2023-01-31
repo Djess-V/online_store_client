@@ -80,42 +80,50 @@ const Basket = observer(() => {
   };
 
   return (
-    <Container>
-      <RemoteBasketDevicesList getBrandType={getBrandType} />
+    <div className="page-basket basket">
+      <Container>
+        <RemoteBasketDevicesList getBrandType={getBrandType} />
 
-      {basket.devices.ids.length === 0 ? (
-        <>
-          <h4 className="mt-2">Корзина пуста. Очень жаль!</h4>
-          <p>
-            Для того, чтобы посмотреть список своих заказов -{" "}
-            <Link to={user.loggedIn ? ORDER_ROUTE : LOGIN_ROUTE}>
-              {user.loggedIn ? "посмотреть мои заказы." : "авторизуйтесь."}
-            </Link>
-          </p>
-        </>
-      ) : (
-        <>
-          <Row className="d-flex justify-content-between ">
-            {basket.devices.ids.map((i) => (
-              <BasketDeviceItem
-                key={i}
-                device={basket.devices.entities[i]}
-                brand={getBrandType("brand", i)}
-                type={getBrandType("type", i)}
-              />
-            ))}
-          </Row>
-          <Row className="mt-4">
-            <Total getBrandType={getBrandType} checkout={checkout} />
-          </Row>
-          <UniversalModal
-            show={showUniversalModal}
-            onHide={() => setShowUniversalModal(false)}
-            message={messageForUniversalModal}
-          />
-        </>
-      )}
-    </Container>
+        {basket.devices.ids.length === 0 ? (
+          <>
+            <h4 className="basket__title mt-2">Корзина пуста. Очень жаль!</h4>
+            <p className="basket__title">
+              Для того, чтобы посмотреть список своих заказов -{" "}
+              <Link to={user.loggedIn ? ORDER_ROUTE : LOGIN_ROUTE}>
+                {user.loggedIn ? "посмотреть мои заказы." : "авторизуйтесь."}
+              </Link>
+            </p>
+          </>
+        ) : (
+          <>
+            <Row className="basket__basket-devices basket-devices">
+              <div className="basket-devices__title">
+                Корзина
+                <span className="basket-devices__title_quantity-icon">
+                  {basket.totalCount > 99 ? "..." : basket.totalCount}
+                </span>
+              </div>
+              {basket.devices.ids.map((i) => (
+                <BasketDeviceItem
+                  key={i}
+                  device={basket.devices.entities[i]}
+                  brand={getBrandType("brand", i)}
+                  type={getBrandType("type", i)}
+                />
+              ))}
+            </Row>
+            <Row className="basket__total-basket total-basket">
+              <Total getBrandType={getBrandType} checkout={checkout} />
+            </Row>
+            <UniversalModal
+              show={showUniversalModal}
+              onHide={() => setShowUniversalModal(false)}
+              message={messageForUniversalModal}
+            />
+          </>
+        )}
+      </Container>
+    </div>
   );
 });
 

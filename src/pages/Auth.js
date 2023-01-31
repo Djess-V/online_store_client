@@ -69,46 +69,52 @@ const Auth = observer(() => {
   };
 
   return (
-    <Container
-      className="d-flex justify-content-center align-items-center"
-      style={{ height: window.innerHeight - 54 }}
-    >
-      <Card style={{ width: 600 }} className="p-5">
-        <h2 className="m-auto">{isLogin ? "Авторизация" : "Регистрация"}</h2>
-        <Form className="d-flex flex-column">
-          <Form.Control
-            type="email"
-            className="mt-3"
-            placeholder="Введите ваш email..."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Form.Control
-            type="password"
-            className="mt-3"
-            placeholder="Введите ваш пароль..."
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Form.Group className="d-flex flex-direction-row justify-content-between align-items-center mt-3">
-            {isLogin ? (
-              <div>
-                Нет аккаунта!{" "}
-                <NavLink to={REGISTRATION_ROUTE}>Зарегистрируйся!</NavLink>
-              </div>
-            ) : (
-              <div>
-                Есть аккаунт? <NavLink to={LOGIN_ROUTE}>Войдите!</NavLink>
-              </div>
-            )}
+    <div className="page-auth auth">
+      <Container
+        className="auth__container"
+        style={{ height: window.innerHeight - 54 }}
+      >
+        <Card className="auth__card card-auth">
+          <h2 className="m-auto">{isLogin ? "Авторизация" : "Регистрация"}</h2>
+          <Form className="d-flex flex-column">
+            <Form.Control
+              type="email"
+              className="mt-3"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Form.Control
+              type="password"
+              className="mt-3"
+              placeholder="Пароль"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Form.Group className="card-auth__form-group">
+              {isLogin ? (
+                <div className="card-auth__form-group_link">
+                  Нет аккаунта!{" "}
+                  <NavLink to={REGISTRATION_ROUTE}>Зарегистрируйся!</NavLink>
+                </div>
+              ) : (
+                <div className="card-auth__form-group_link">
+                  Есть аккаунт? <NavLink to={LOGIN_ROUTE}>Войдите!</NavLink>
+                </div>
+              )}
 
-            <Button variant={"outline-success"} onClick={click}>
-              {isLogin ? "Войти" : "Регистрация"}
-            </Button>
-          </Form.Group>
-        </Form>
-      </Card>
-    </Container>
+              <Button
+                className="card-auth__form-group_button"
+                variant={"outline-success"}
+                onClick={click}
+              >
+                {isLogin ? "Войти" : "Регистрация"}
+              </Button>
+            </Form.Group>
+          </Form>
+        </Card>
+      </Container>
+    </div>
   );
 });
 

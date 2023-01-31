@@ -45,7 +45,7 @@ const BasketDeviceItem = observer(({ device, brand, type }) => {
 
   return (
     <Card
-      className="mt-4 mx-1"
+      className="basket-devices__basket-device basket-device"
       style={{
         width: "16rem",
       }}
@@ -57,7 +57,7 @@ const BasketDeviceItem = observer(({ device, brand, type }) => {
         src={process.env.REACT_APP_API_URL + "/" + device.img}
         alt="Device Image"
       />
-      <Card.Body>
+      <Card.Body className="basket-device__body">
         <Card.Title>{brand}</Card.Title>
         <Card.Text>{device.name}</Card.Text>
         <div className="mt-1 d-flex align-items-center justify-content-between">

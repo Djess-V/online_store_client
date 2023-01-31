@@ -24,21 +24,21 @@ const RemoteBasketDevicesList = observer(({ getBrandType = (f) => f }) => {
   return (
     <>
       {basket.remoteDevices.ids.length > 0 && (
-        <Card className="mt-3">
+        <Card className="basket__remote-devices remote-devices mt-3">
           <Card.Body>
-            <Card.Title className="ps-2">Удалённые устройства</Card.Title>
+            <Card.Title className="remote-devices__title">
+              Удалённые устройства
+            </Card.Title>
             <hr />
-            <ul>
+            <ul className="remote-devices__list-remote-devices list-remote-devices">
               {basket.remoteDevices.ids.map((id) => (
                 <li
                   key={id}
-                  className="my-4 d-flex align-items-center justify-content-between"
+                  className="list-remote-devices__remote-device remote-device my-4 d-flex align-items-center justify-content-between"
                 >
-                  <div className="d-flex align-items-center">
+                  <div className="remote-device__image-name d-flex align-items-center">
                     <Image
-                      width={50}
-                      height={50}
-                      className="me-3"
+                      className="remote-device__image-name_image"
                       src={
                         process.env.REACT_APP_API_URL +
                         "/" +
@@ -46,11 +46,14 @@ const RemoteBasketDevicesList = observer(({ getBrandType = (f) => f }) => {
                       }
                       alt="Device Image"
                     />
-                    <div>{`${getBrandType("brand", id, true)} ${
-                      basket.remoteDevices.entities[id].name
-                    }`}</div>
+                    <div className="remote-device__image-name_name">{`${getBrandType(
+                      "brand",
+                      id,
+                      true
+                    )} ${basket.remoteDevices.entities[id].name}`}</div>
                   </div>
                   <Button
+                    className="remote-device__button"
                     variant="outline-success"
                     onClick={() => restoreRecord(id)}
                   >

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import Col from "react-bootstrap/esm/Col";
 import Card from "react-bootstrap/esm/Card";
 import Image from "react-bootstrap/Image";
@@ -12,19 +12,19 @@ const DeviceItem = observer(({ device, brand }) => {
   const { devices } = useContext(Context);
   const history = useNavigate();
 
-  const selectDevice = () => {
+  const selectDevice = useCallback(() => {
     devices.setSelectedDevice(device.id);
     history(DEVICE_ROUTE + "/" + device.id);
-  };
+  }, [devices, history]);
 
   return (
-    <Col md={3} className="d-flex justify-content-center align-items-center">
+    <div className="device-list__device-item device-item">
       <Card
-        className="mt-3 p-2"
+        className="device-item__card mt-3 mx-2 p-2 d-flex flex-column"
         style={{
           cursor: "pointer",
+          height: "100%",
         }}
-        border={"light"}
         onClick={() => selectDevice()}
       >
         <Image
@@ -43,7 +43,7 @@ const DeviceItem = observer(({ device, brand }) => {
         </div>
         <div>{device.name}</div>
       </Card>
-    </Col>
+    </div>
   );
 });
 

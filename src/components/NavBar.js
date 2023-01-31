@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Context } from "..";
 import {
   SHOP_ROUTE,
@@ -31,59 +30,100 @@ const NavBar = observer(() => {
   };
 
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar
+      bg="dark"
+      expand="lg"
+      collapseOnSelect={true}
+      variant="dark"
+      sticky="top"
+    >
       <Container>
-        <NavLink className="navbar_navlink" to={SHOP_ROUTE}>
+        <Link
+          className="navbar_navlink"
+          onClick={(e) => {
+            e.preventDefault();
+            history(SHOP_ROUTE);
+          }}
+        >
           {location.pathname === "/" ? "Магазин" : "Вернуться в магазин"}
-        </NavLink>
-        <Nav className="ms-auto me-3">
-          {user.loggedIn && (
-            <Button
-              className="me-3 navbar_navbutton"
-              variant={"outline-light"}
-              onClick={() => history(ORDER_ROUTE)}
-            >
-              Мои заказы
-              <div className="navbar_quantity-icon">
-                {orders.orders.ids.length > 99
-                  ? "..."
-                  : orders.orders.ids.length}
-              </div>
-            </Button>
-          )}
+        </Link>
+        <Navbar.Toggle
+          className="navbar_toggle"
+          aria-controls="basic-navbar-nav"
+        />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto me-3">
+            {user.loggedIn && (
+              <Link
+                className="me-3 navbar_navlink"
+                onClick={(e) => {
+                  e.preventDefault();
+                  history(ORDER_ROUTE);
+                }}
+              >
+                Мои заказы
+                <span className="navbar_quantity-icon">
+                  {orders.orders.ids.length > 99
+                    ? "..."
+                    : orders.orders.ids.length}
+                </span>
+              </Link>
+            )}
 
-          <Button
-            className="me-3 navbar_navbutton"
-            onClick={() => history(BASKET_ROUTE)}
-          >
-            Корзина
-            <div className="navbar_quantity-icon">
-              {basket.totalCount > 99 ? "..." : basket.totalCount}
-            </div>
-          </Button>
+            {location.pathname !== "/basket" && (
+              <Link
+                className="me-3 navbar_navlink"
+                onClick={(e) => {
+                  e.preventDefault();
+                  history(BASKET_ROUTE);
+                }}
+              >
+                Корзина
+                <span className="navbar_quantity-icon">
+                  {basket.totalCount > 99 ? "..." : basket.totalCount}
+                </span>
+              </Link>
+            )}
 
-          {user.user.role === "ADMIN" && (
-            <Button
-              className="me-3"
-              variant={"outline-light"}
-              onClick={() => history(ADMIN_ROUTE)}
-            >
-              Админ панель
-            </Button>
-          )}
-          {user.loggedIn ? (
-            <Button variant={"outline-light"} onClick={logOut}>
-              Выйти
-            </Button>
-          ) : (
-            <Button
-              variant={"outline-light"}
-              onClick={() => history(LOGIN_ROUTE)}
-            >
-              Войти
-            </Button>
-          )}
-        </Nav>
+            {user.user.role === "ADMIN" && (
+              <Link
+                className="me-3 navbar_navlink"
+                onClick={(e) => {
+                  e.preventDefault();
+                  history(ADMIN_ROUTE);
+                }}
+              >
+                Админ панель
+              </Link>
+            )}
+            {user.loggedIn ? (
+              <Link
+                className="navbar_navlink"
+                onClick={(e) => {
+                  e.preventDefault();
+                  logOut();
+                }}
+              >
+                Выйти
+              </Link>
+            ) : (
+              <>
+                {location.pathname !== "/registration" &&
+                  location.pathname !== "/login" && (
+                    <Link
+                      className="navbar_navlink"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        history(LOGIN_ROUTE);
+                      }}
+                    >
+                      Войти
+                    </Link>
+                  )}
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

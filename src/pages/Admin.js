@@ -39,11 +39,11 @@ const Admin = () => {
   };
 
   return (
-    <>
+    <div className="admin_block">
       <Container className="d-flex flex-column">
         <Button
           variant="outline-success"
-          className="mt-5 p-2"
+          className="p-2"
           onClick={() => handlerClick("showTypeModal")}
         >
           Добавить новый тип
@@ -131,7 +131,7 @@ const Admin = () => {
           onHide={() => handlerClick("showFailExecution")}
         />
       </Container>
-    </>
+    </div>
   );
 };
 

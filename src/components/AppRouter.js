@@ -6,7 +6,7 @@ import Basket from "../pages/Basket";
 import Shop from "../pages/Shop";
 import Auth from "../pages/Auth";
 import DevicePage from "../pages/DevicePage";
-import OrderList from "../pages/OrderList";
+import Orders from "../pages/Orders";
 import {
   ADMIN_ROUTE,
   BASKET_ROUTE,
@@ -28,7 +28,7 @@ const AppRouter = observer(() => {
     },
     {
       path: ORDER_ROUTE,
-      Component: <OrderList />,
+      Component: <Orders />,
     },
   ];
 

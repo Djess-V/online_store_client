@@ -20,7 +20,7 @@ const CreateBrand = ({ show, onHide = (f) => f }) => {
       <Modal.Body>
         <Form>
           <Form.Control
-            placeholder="Введите название брэнда"
+            placeholder="Название брэнда"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
