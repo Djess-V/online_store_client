@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Modal, Button, Form, Dropdown, Row, Col } from "react-bootstrap";
 import { Context } from "../..";
 import { observer } from "mobx-react-lite";
@@ -10,12 +10,48 @@ const CreateDevice = observer(({ show, onHide = (f) => f }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState("");
+  const [desc, setDesc] = useState(null);
+  const [descName, setDescName] = useState("");
   const [info, setInfo] = useState([]);
+
+  const imageRef = useRef();
+  const descRef = useRef();
 
   const { devices } = useContext(Context);
 
-  const selectedFile = (e) => {
-    setFile(e.target.files[0]);
+  const selectedFile = (e, condition) => {
+    const file = e.target.files[0];
+
+    if (condition === "image") {
+      if (file === undefined) {
+        if (fileName) {
+          setFileName("");
+        }
+        return;
+      }
+      if (file.type !== "image/webp" && file.type !== "image/jpeg") {
+        setFileName("Выберите правильный формат файла!");
+        setTimeout(() => setFileName(""), 2000);
+        return;
+      }
+      setFile(file);
+      setFileName(file.name);
+    } else if (condition === "desc") {
+      if (file === undefined) {
+        if (descName) {
+          setDescName("");
+        }
+        return;
+      }
+      if (file.type !== "text/plain") {
+        setDescName("Выберите правильный формат файла!");
+        setTimeout(() => setDescName(""), 2000);
+        return;
+      }
+      setDesc(file);
+      setDescName(file.name);
+    }
   };
 
   const addInfo = () => {
@@ -37,6 +73,7 @@ const CreateDevice = observer(({ show, onHide = (f) => f }) => {
     formData.append("name", name);
     formData.append("price", `${price}`);
     formData.append("img", file);
+    formData.append("description", desc);
     formData.append("brandId", selectedBrand.id);
     formData.append("typeId", selectedType.id);
     formData.append("info", JSON.stringify(info));
@@ -105,10 +142,29 @@ const CreateDevice = observer(({ show, onHide = (f) => f }) => {
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
           />
+          <Button className="mt-3" onClick={() => imageRef.current.click()}>
+            Выберите изображение (*.webp, *.jpg)
+          </Button>
+          <div className="mt-1">{fileName}</div>
           <Form.Control
             className="mt-3"
             type="file"
-            onChange={(e) => selectedFile(e)}
+            ref={imageRef}
+            style={{ display: "none" }}
+            placeholder="Изображение"
+            onChange={(e) => selectedFile(e, "image")}
+          />
+          <Button className="mt-1" onClick={() => descRef.current.click()}>
+            Выберите файл описания (*.txt)
+          </Button>
+          <div className="mt-1">{descName}</div>
+          <Form.Control
+            className="mt-3"
+            type="file"
+            ref={descRef}
+            style={{ display: "none" }}
+            placeholder="Описание"
+            onChange={(e) => selectedFile(e, "desc")}
           />
           <hr />
           <Button className="mt-3" variant="outline-dark" onClick={addInfo}>

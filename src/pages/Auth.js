@@ -31,7 +31,6 @@ const Auth = observer(() => {
       } else {
         data = await registration(email, password);
       }
-
       user.setUser(data.user);
       user.setIsAuth(true);
       user.setLoggedIn(true);

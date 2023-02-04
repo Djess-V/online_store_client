@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import DeviceList from "../components/DeviceList";
+import DeviceList from "../components/shop_components/DeviceList";
 import { observer } from "mobx-react-lite";
 import { Context } from "..";
 import { fetchTypes, fetchBrands, fetchDevices } from "../http/deviceAPI";
-import Pages from "../components/Pages";
+import Pages from "../components/shop_components/Pages";
 import { Button } from "react-bootstrap";
 import CatalogModal from "../components/modals/CatalogModal";
 import { isEmpty } from "../utils/servicesFunction";
+import SuccesfulExecution from "../components/modals/SuccesfulExecution";
 
 const catalogModalInit = {
   field: "",
@@ -21,6 +22,7 @@ const Shop = observer(() => {
   const { devices } = useContext(Context);
 
   const [dataCatalogModal, setDataCatalogModal] = useState(catalogModalInit);
+  const [addedToCart, setAddedToCart] = useState(false);
 
   const handlerClick = (condition) => {
     const selected =
@@ -92,10 +94,6 @@ const Shop = observer(() => {
               : devices.selectedBrand.name}
           </Button>
         </Row>
-        <Row className="shop__device-list-row device-list-row mt-3">
-          <DeviceList />
-          <Pages />
-        </Row>
         {!devices.devices.length && (
           <Row>
             <p className="mt-2">
@@ -103,6 +101,16 @@ const Shop = observer(() => {
             </p>
           </Row>
         )}
+        <Row className="shop__device-list-row device-list-row mt-3">
+          <DeviceList
+            addItemToCart={() => {
+              setAddedToCart(true);
+              setTimeout(() => setAddedToCart(false), 1000);
+            }}
+          />
+          <Pages />
+        </Row>
+
         <CatalogModal
           show={dataCatalogModal.show}
           onHide={() => setDataCatalogModal({ ...catalogModalInit })}
@@ -110,6 +118,11 @@ const Shop = observer(() => {
           field={dataCatalogModal.field}
           selected={devices[dataCatalogModal.selected]}
           highlightListItem={highlightListItem}
+        />
+        <SuccesfulExecution
+          show={addedToCart}
+          onHide={() => setAddedToCart(false)}
+          message="Товар добавлен в корзину"
         />
       </Container>
     </div>

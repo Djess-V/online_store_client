@@ -1,6 +1,11 @@
+@font-face {
+  font-family: "Kurale";
+  src: url("./fonts/kurale/kurale-regular.otf");
+}
 /* ------------------Variables---------------------- */
 * {
   box-sizing: border-box;
+  font-family: "Kurale";
 }
 
 .shop__row,
@@ -84,14 +89,83 @@
   padding: 0px 15px 15px 0px;
 }
 
-.device-item__card {
-  transition: all 0.3s ease 0s;
+.device-item__card-device-item {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.6s ease 0s;
   border: none;
+  margin: 20px 10px 0px;
+  padding: 10px;
+  cursor: pointer;
+  height: 100%;
 }
 
-.device-item__card:hover {
+.device-item__card-device-item:hover {
   box-shadow: 0 0 10px 3px rgb(201, 200, 200);
   transform: scale(1.05);
+}
+
+.device-item__card-device-item_image {
+  width: 150px;
+  height: 150px;
+  margin: 0px auto;
+}
+
+.card-device-item__brand-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.card-device-item__brand-rating_brand {
+  opacity: 0.5;
+}
+
+.brand-rating__rating {
+  display: flex;
+  align-items: center;
+}
+
+.brand-rating__rating_count {
+  margin-right: 5px;
+  opacity: 0.5;
+}
+
+.brand-rating__rating_image {
+  width: 20px;
+  height: 20px;
+}
+
+.card-device-item__name {
+  margin: 5px 0px;
+  font-size: 10pt;
+}
+
+.card-device-item__price {
+  text-align: center;
+  font-size: 14pt;
+  font-weight: 500;
+}
+
+.card-device-item__button {
+  margin: 10px 20px 0px;
+  padding: 2px 5px;
+  font-size: 12pt;
+  font-weight: 500;
+}
+
+.card-device-item__button:hover {
+  background-color: rgb(25, 121, 217);
+  border-color: rgb(25, 121, 217);
+}
+
+.pagination-shop {
+  margin: 20px;
+}
+
+.catalog-modal__list {
+  cursor: pointer;
 }
 
 @media (max-width: 990px) {
@@ -114,19 +188,11 @@
     justify-content: center;
   }
 }
-.pagination-shop {
-  margin: 20px;
-}
-
 @media (max-width: 575px) {
   .pagination-shop {
     margin-left: 50px;
   }
 }
-.catalog-modal__list {
-  cursor: pointer;
-}
-
 /* ------------------Orders---------------------- */
 .page-orders * {
   font-size: 16pt;
@@ -373,10 +439,193 @@
 
 .admin-fail-execution__modal_body,
 .admin-success-execution__modal_body {
+  text-align: center;
   padding: 5px 20px;
 }
 
 .admin-fail-execution__modal_footer,
 .admin-success-execution__modal_footer {
   padding: 5px 20px;
+}
+
+/* ------------------DevicePage---------------------- */
+.device-page__container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.device-page__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.device-page__main_image {
+  display: flex;
+  justify-content: center;
+  flex: 0 1 50%;
+}
+
+.image-device-page {
+  width: 300px;
+  height: 300px;
+}
+
+.device-page__main_data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 0 1 50%;
+}
+
+.data-device-page__data {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-device-page__data > div {
+  margin: 0px 0px 10px 0px;
+}
+
+.data-device-page__data_brand {
+  font-size: 20pt;
+  font-weight: 500;
+}
+
+.data-device-page__data_name-rating {
+  display: flex;
+}
+
+.data-name-rating__name {
+  font-size: 16pt;
+  margin-right: 30px;
+}
+
+.data-name-rating__rating {
+  display: flex;
+  align-items: center;
+}
+.data-name-rating__rating span {
+  margin-right: 10px;
+}
+
+.data-device-page__data_change-rating {
+  display: flex;
+  align-items: center;
+}
+
+.data-change-rating__stars {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.data-change-rating__text {
+  font-size: 12pt;
+  font-weight: 500;
+  margin: 0px 0px 0px 20px;
+}
+
+.data-device-page__basket-panel {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.6s ease 0s;
+  box-shadow: 0 0 10px 3px rgb(201, 200, 200);
+  border-radius: 5px;
+  border: 1px solid rgb(201, 200, 200);
+  width: 300px;
+  height: 130px;
+}
+
+.data-device-page__basket-panel:hover {
+  transform: scale(1.05);
+}
+
+.data-device-page__basket-panel_prices {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.basket-panel__prices_small {
+  color: red;
+  font-size: 16pt;
+  font-weight: 700;
+}
+
+.basket-panel__prices_big {
+  margin: 0px 20px;
+  text-decoration: line-through;
+  font-size: 12pt;
+  font-weight: 500;
+}
+
+.basket-panel__prices_discount {
+  background-color: red;
+  padding: 0px;
+  font-size: 11pt;
+  font-weight: 500;
+  border-radius: 3px;
+}
+
+.data-device-page__basket-panel_link {
+  text-decoration: none;
+  color: black;
+  font-size: 10pt;
+  font-weight: 500;
+  margin: 0px auto;
+}
+
+.data-device-page__basket-panel_link:hover {
+  color: rgb(39, 178, 242);
+}
+
+.data-device-page__basket-panel_button {
+  margin: 10px auto;
+  color: white;
+  padding: 5px 5px;
+  font-size: 11pt;
+  font-weight: 500;
+  border-radius: 3px;
+  width: 170px;
+  margin-bottom: 3px;
+}
+
+.data-device-page__basket-panel_button:hover {
+  background-color: rgb(25, 121, 217);
+  border-color: rgb(25, 121, 217);
+}
+
+.data-device-page__basket-panel_delivery {
+  color: black;
+  font-size: 10pt;
+  font-weight: 500;
+  margin: 0px auto;
+}
+.data-device-page__basket-panel_delivery span {
+  font-style: italic;
+}
+
+.device-page__description {
+  padding: 0px 10px;
+  margin: 40px 0px 0px 0px;
+}
+
+.device-page__description_title {
+  margin: 0px 0px 20px 0px;
+}
+
+.device-page__description_text {
+  text-align: justify;
+  text-indent: 30px;
+}
+
+@media (max-width: 767px) {
+  .device-page__main {
+    flex-direction: column;
+    align-items: center;
+  }
 }/*# sourceMappingURL=styles.css.map */

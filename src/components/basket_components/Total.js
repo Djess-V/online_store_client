@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Card, Button } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
-import { Context } from "..";
-import { deleteBasketDevice } from "../http/basketAPI";
+import { Context } from "../..";
+import { deleteBasketDevice } from "../../http/basketAPI";
 
 const Total = observer(({ getBrandType = (f) => f, checkout = (f) => f }) => {
   const { user, basket } = useContext(Context);

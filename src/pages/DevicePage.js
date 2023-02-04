@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Container, Col, Image, Row, Card, Button } from "react-bootstrap";
-import AddDeviceAlert from "../components/alerts/AddDeviceAlert";
-import star from "../assets/Star_for_DevicePage.png";
+import { Button, Container, Image, Row } from "react-bootstrap";
+import BasicData from "../components/device_page_components/BasicData";
 import { Context } from "..";
 import { observer } from "mobx-react-lite";
 import { addBasketDevice } from "../http/basketAPI";
@@ -10,15 +9,9 @@ const DevicePage = observer(() => {
   const { user, devices, basket } = useContext(Context);
 
   const [addDevice, setAddDevice] = useState(false);
-  const [showAddDeviceAlert, setShowAddDeviceAlert] = useState(false);
 
   const addToShoppingCart = async () => {
     if (addDevice) {
-      if (!showAddDeviceAlert) {
-        setShowAddDeviceAlert(true);
-        setTimeout(() => setShowAddDeviceAlert(false), 2000);
-      }
-
       if (!basket.devices.entities[devices.selectedDevice.id]) {
         basket.setDevice(devices.selectedDevice);
         if (user.loggedIn) {
@@ -45,65 +38,67 @@ const DevicePage = observer(() => {
   }, [addDevice]);
 
   return (
-    <div className="device-page_block">
-      <Container className="mt-3 d-flex flex-column">
-        <AddDeviceAlert show={showAddDeviceAlert} />
-        <Row
-          className="d-flex justify-content-between align-items-center"
-          style={{ width: "100%" }}
-        >
-          <Col md={4}>
+    <div className="page__device-page device-page">
+      <Container className="device-page__container">
+        <div className="device-page__main main-device-page">
+          <div className="device-page__main_image">
             <Image
-              width={300}
-              height={300}
+              className="image-device-page"
               src={
                 process.env.REACT_APP_API_URL + "/" + devices.selectedDevice.img
               }
+              alt="Device"
             />
-          </Col>
-          <Col md={4}>
-            <Row>
-              <Row className="d-flex justify-content-center align-items-center">
-                <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-                  {devices.selectedDevice.name}
-                </h2>
-                <div
-                  className="d-flex justify-content-center align-items-center"
-                  style={{
-                    background: `url(${star}) no-repeat center center`,
-                    width: 240,
-                    height: 240,
-                    backgroundSize: "cover",
-                    fontWeight: 600,
-                    fontSize: 64,
-                  }}
-                >
-                  {devices.selectedDevice.rating}
+          </div>
+          <div className="device-page__main_data data-device-page">
+            <BasicData />
+            <div className="data-device-page__basket-panel">
+              <div className="data-device-page__basket-panel_prices basket-panel__prices">
+                <div className="basket-panel__prices_small">
+                  {devices.selectedDevice.price}&#8381;
                 </div>
-              </Row>
-            </Row>
-          </Col>
-          <Col md={4} className="d-flex justify-content-end">
-            <Card
-              className="d-flex flex-column justify-content-around align-items-center"
-              style={{
-                width: 300,
-                height: 300,
-                fontSize: 32,
-                border: "5px solid green",
-              }}
-            >
-              <h3>От: {devices.selectedDevice.price} руб.</h3>
+                <div className="basket-panel__prices_big">
+                  {(devices.selectedDevice.price * 1.35).toFixed(0)}&#8381;
+                </div>
+                <div className="basket-panel__prices_discount">
+                  -
+                  {
+                    ~~(
+                      (devices.selectedDevice.price * 100) /
+                      (~~devices.selectedDevice.price * 1.35)
+                    )
+                  }
+                  %
+                </div>
+              </div>
+              <a
+                className="data-device-page__basket-panel_link"
+                href="https://ru.wikipedia.org/wiki/%D0%A1%D0%BA%D0%B8%D0%B4%D0%BA%D0%B0"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Узнайте больше о скидках
+              </a>
               <Button
-                variant={"outline-success"}
+                className="data-device-page__basket-panel_button"
+                variant="info"
                 onClick={() => setAddDevice(true)}
               >
                 Добавить в корзину
               </Button>
-            </Card>
-          </Col>
-        </Row>
-        <Row className="m-3">
+              <div className="data-device-page__basket-panel_delivery">
+                Доставка <span>завтра</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="device-page__description">
+          <h2 className="device-page__description_title">Описание</h2>
+          <p className="device-page__description_text">
+            {devices.selectedDevice.description}
+          </p>
+        </div>
+        <div className="device-page__records m-3">
           <h2 className="m-2">Характеристики</h2>
           {devices.selectedDevice.info.map((info, index) => (
             <Row
@@ -119,7 +114,7 @@ const DevicePage = observer(() => {
               {info.title}: {info.description}
             </Row>
           ))}
-        </Row>
+        </div>
       </Container>
     </div>
   );

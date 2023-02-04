@@ -3,7 +3,7 @@ import Accordion from "react-bootstrap/Accordion";
 import { observer } from "mobx-react-lite";
 import { Context } from "..";
 import { Container } from "react-bootstrap";
-import OrderItem from "../components/OrderItem";
+import OrderItem from "../components/orders_components/OrderItem";
 
 const Orders = observer(() => {
   const { orders } = useContext(Context);

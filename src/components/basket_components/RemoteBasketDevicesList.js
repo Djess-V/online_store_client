@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Card, Button, Image } from "react-bootstrap";
-import { Context } from "..";
+import { Context } from "../..";
 import { observer } from "mobx-react-lite";
-import { addBasketDevice } from "../http/basketAPI";
+import { addBasketDevice } from "../../http/basketAPI";
 
 const RemoteBasketDevicesList = observer(({ getBrandType = (f) => f }) => {
   const { user, basket } = useContext(Context);

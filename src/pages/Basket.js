@@ -1,22 +1,25 @@
 import React, { useCallback, useContext, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import { Context } from "..";
-import BasketDeviceItem from "../components/BasketDeviceItem";
-import Total from "../components/Total";
+import BasketDeviceItem from "../components/basket_components/BasketDeviceItem";
+import Total from "../components/basket_components/Total";
 import { observer } from "mobx-react-lite";
 import UniversalModal from "../components/modals/UniversalModal";
-import RemoteBasketDevicesList from "../components/RemoteBasketDevicesList";
+import RemoteBasketDevicesList from "../components/basket_components/RemoteBasketDevicesList";
 import { Link, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE, ORDER_ROUTE } from "../utils/consts";
 import { createOrder } from "../http/orderAPI";
 import { createPendingPurchase } from "../http/pendingPurchaseAPI";
 import { deleteBasketDevice } from "../http/basketAPI";
+import SuccesfulExecution from "../components/modals/SuccesfulExecution";
 
 const Basket = observer(() => {
   const { user, devices, basket, orders } = useContext(Context);
   const history = useNavigate();
 
   const [showUniversalModal, setShowUniversalModal] = useState(false);
+  const [orderIsProcessed, setOrderIsProcessed] = useState(false);
+
   const messageForUniversalModal =
     "Чтобы оформить заказ, пожалуйста пройдите авторизацию!";
 
@@ -73,7 +76,12 @@ const Basket = observer(() => {
 
       basket.setTotalCount(0);
 
-      history(ORDER_ROUTE);
+      setOrderIsProcessed(true);
+
+      setTimeout(() => {
+        setOrderIsProcessed(false);
+        history(ORDER_ROUTE);
+      }, 2000);
     } else {
       setShowUniversalModal(true);
     }
@@ -86,11 +94,11 @@ const Basket = observer(() => {
 
         {basket.devices.ids.length === 0 ? (
           <>
-            <h4 className="basket__title mt-2">Корзина пуста. Очень жаль!</h4>
+            <h4 className="basket__title mt-2">Корзина пуста</h4>
             <p className="basket__title">
               Для того, чтобы посмотреть список своих заказов -{" "}
               <Link to={user.loggedIn ? ORDER_ROUTE : LOGIN_ROUTE}>
-                {user.loggedIn ? "посмотреть мои заказы." : "авторизуйтесь."}
+                {user.loggedIn ? "перейдите по ссылке." : "авторизуйтесь."}
               </Link>
             </p>
           </>
@@ -122,6 +130,11 @@ const Basket = observer(() => {
             />
           </>
         )}
+        <SuccesfulExecution
+          show={orderIsProcessed}
+          onHide={() => setOrderIsProcessed(false)}
+          message="Заказ оформлен"
+        />
       </Container>
     </div>
   );

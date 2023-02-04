@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Card, Button, Image } from "react-bootstrap";
-import { Context } from "..";
+import { Context } from "../..";
 import { observer } from "mobx-react-lite";
-import { deleteBasketDevice, updateBasketDevice } from "../http/basketAPI";
+import { deleteBasketDevice, updateBasketDevice } from "../../http/basketAPI";
 
 const BasketDeviceItem = observer(({ device, brand, type }) => {
   const { user, basket } = useContext(Context);

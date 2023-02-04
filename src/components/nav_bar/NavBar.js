@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Context } from "..";
+import { Context } from "../..";
 import {
   SHOP_ROUTE,
   ADMIN_ROUTE,
   LOGIN_ROUTE,
   BASKET_ROUTE,
   ORDER_ROUTE,
-} from "../utils/consts";
+} from "../../utils/consts";
 import { observer } from "mobx-react-lite";
 
 const NavBar = observer(() => {

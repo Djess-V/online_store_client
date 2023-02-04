@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
 import Row from "react-bootstrap/esm/Row";
-import { Context } from "..";
+import { Context } from "../..";
 import DeviceItem from "./DeviceItem";
 
-const DeviceList = observer(() => {
+const DeviceList = observer(({ addItemToCart = (f) => f }) => {
   const { devices } = useContext(Context);
 
   const getBrand = (id) => {
@@ -20,6 +20,7 @@ const DeviceList = observer(() => {
         <DeviceItem
           key={device.id}
           device={device}
+          addItemToCart={addItemToCart}
           brand={getBrand(device.brandId)}
         />
       ))}

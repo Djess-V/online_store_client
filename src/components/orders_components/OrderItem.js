@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Accordion, Image } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
-import { Context } from "..";
-import { calculateDataForFieldTotalPageOrderItem } from "../utils/servicesFunction";
+import { Context } from "../..";
+import { calculateDataForFieldTotalPageOrderItem } from "../../utils/servicesFunction";
 
 const OrderItem = observer(({ id, index }) => {
   const { orders } = useContext(Context);
